@@ -160,7 +160,7 @@ def site():
             <p>We hope you enjoy!.</p>
         </div>
         <div class="masthead">
-            <p>Luke Roth and Rohith Velmurugan, 2024</p>
+            <p>Luke Roth and Rohith Velmurugan 2024</p>
         </div>
     </body>
     </html>
