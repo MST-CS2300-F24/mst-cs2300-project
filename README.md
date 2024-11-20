@@ -14,4 +14,10 @@ python -m venv .env
 
 From here, install the necessary packages using the command `pip install -r requirments.txt`
 
-Change the MySQL login information in `MySQL.py` and `initialize.py` to mattch your MySQL server
+Change the MySQL login information in `MySQL.py` and `initialize.py` to match your MySQL server.
+
+## Initialization
+To initialize the Database to your MySQL Server, run `inititialize.py` from your virtual environment.
+
+## Deployment
+To launch the web app, run `run.py` from your virtual environment.
