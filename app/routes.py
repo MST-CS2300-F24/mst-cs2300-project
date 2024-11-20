@@ -4,22 +4,7 @@ app = Blueprint('app', __name__)
 
 @app.route('/')
 def home():
-    error = request.args.get('error')
-    return render_template('home.html', error=error)
-
-@app.route('/login', methods=['POST'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
-
-    if username == 'admin' and password == 'CS2300':
-        return redirect(url_for('app.site'))
-    else:
-        return redirect(url_for('app.home', error=True))
-
-@app.route('/site')
-def site():
-    return render_template('site.html')
+    return render_template('home.html')
 
 @app.route('/dashboard')
 def dashboard():
@@ -36,3 +21,18 @@ def aircraft():
 @app.route('/manage')
 def manage():
     return render_template('manage.html')
+
+@app.route('/login')
+def login():
+    error = request.args.get('error')
+    return render_template('login.html', error=error)
+
+@app.route('/checklogin', methods=['POST'])
+def checklogin():
+    username = request.form['username']
+    password = request.form['password']
+
+    if username == 'admin' and password == 'CS2300':
+        return redirect(url_for('app.home'))
+    else:
+        return redirect(url_for('app.login', error=True))
