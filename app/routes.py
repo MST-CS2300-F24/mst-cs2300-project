@@ -25,17 +25,37 @@ def flights():
     connection = mysql.connect()
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM airports")
-    airports = cursor.fetchall()
+    airport_list = cursor.fetchall()
     cursor.execute("SELECT * FROM aircrafts")
-    aircrafts = cursor.fetchall()
+    aircraft_list = cursor.fetchall()
     cursor.execute("SELECT * FROM flights")
-    flights = cursor.fetchall()
+    flight_list = cursor.fetchall()
     cursor.execute("SELECT * FROM maintenance_schedule")
     maintenance_schedule = cursor.fetchall()
     cursor.execute("SELECT * FROM maintenance_log")
     maintenance_log = cursor.fetchall()
     connection.close()
-    return render_template('manage.html', airports=airports, aircrafts=aircrafts, flights=flights, maintenance_schedule=maintenance_schedule, maintenance_log=maintenance_log)
+    return render_template('flights.html', airport_list=airport_list, aircraft_list=aircraft_list, flight_list=flight_list, maintenance_schedule=maintenance_schedule, maintenance_log=maintenance_log)
+
+@app.route('/specific_airport')
+def specific_airport():
+    return render_template('specific_airport.html', icao_id=request.args.get('icao_id'))
+
+@app.route('/specific_aircraft')
+def specific_aircraft():
+    return render_template('specific_aircraft.html', registration_code=request.args.get('registration_code'))
+
+@app.route('/specific_flight')
+def specific_flight():
+    return render_template('specific_flight.html', id=request.args.get('id'))
+
+@app.route('/specific_maintenance_schedule')
+def specific_maintenance_schedule():
+    return render_template('specific_maintenance_schedule.html', id=request.args.get('id'))
+
+@app.route('/specific_maintenance_log')
+def specific_maintenance_log():
+    return render_template('specific_maintenance_log.html', id=request.args.get('id'))
 
 @app.route('/login')
 def login():
