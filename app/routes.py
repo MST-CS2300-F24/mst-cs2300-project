@@ -20,3 +20,19 @@ def login():
 @app.route('/site')
 def site():
     return render_template('site.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/airports')
+def airports():
+    return render_template('airports.html')
+
+@app.route('/aircraft')
+def aircraft():
+    return render_template('aircraft.html')
+
+@app.route('/manage')
+def manage():
+    return render_template('manage.html')
