@@ -20,25 +20,20 @@ def airports():
 def aircraft():
     return render_template('aircraft.html')
 
-@app.route('/manage')
-def manage():
+@app.route('/flights')
+def flights():
     connection = mysql.connect()
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM airports")
     airports = cursor.fetchall()
-    print("Airports:", airports)  # Debugging statement
     cursor.execute("SELECT * FROM aircrafts")
     aircrafts = cursor.fetchall()
-    print("Aircrafts:", aircrafts)  # Debugging statement
     cursor.execute("SELECT * FROM flights")
     flights = cursor.fetchall()
-    print("Flights:", flights)  # Debugging statement
     cursor.execute("SELECT * FROM maintenance_schedule")
     maintenance_schedule = cursor.fetchall()
-    print("Maintenance Schedule:", maintenance_schedule)  # Debugging statement
     cursor.execute("SELECT * FROM maintenance_log")
     maintenance_log = cursor.fetchall()
-    print("Maintenance Log:", maintenance_log)  # Debugging statement
     connection.close()
     return render_template('manage.html', airports=airports, aircrafts=aircrafts, flights=flights, maintenance_schedule=maintenance_schedule, maintenance_log=maintenance_log)
 
