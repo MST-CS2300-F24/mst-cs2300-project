@@ -49,14 +49,6 @@ def specific_aircraft():
 def specific_flight():
     return render_template('specific_flight.html', id=request.args.get('id'))
 
-@app.route('/specific_maintenance_schedule')
-def specific_maintenance_schedule():
-    return render_template('specific_maintenance_schedule.html', id=request.args.get('id'))
-
-@app.route('/specific_maintenance_log')
-def specific_maintenance_log():
-    return render_template('specific_maintenance_log.html', id=request.args.get('id'))
-
 @app.route('/login')
 def login():
     error = request.args.get('error')
