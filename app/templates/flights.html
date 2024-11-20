@@ -13,111 +13,118 @@
         <a href="{{ url_for('app.flights') }}">Flights</a>
         <a href="{{ url_for('app.login') }}">Logout</a>
     </div>
-    <div class="container">
-        <h2>Maintenance Schedule</h2>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Aircraft ID</th>
-                    <th>Scheduled Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for schedule in maintenance_schedule %}
-                <tr>
-                    <td>{{ schedule[0] }}</td>
-                    <td>{{ schedule[1] }}</td>
-                    <td>{{ schedule[2] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="container" style="margin-top: 50px;">
+        <div>
+            <h2>Maintenance Schedule</h2>
+            <table class="styled-table" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>Aircraft ID</th>
+                        <th>Scheduled Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for schedule in maintenance_schedule %}
+                    <tr>
+                        <td>{{ schedule[0] }}</td>
+                        <td>{{ schedule[1] }}</td>
+                        <td>{{ schedule[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2>Maintenance Log</h2>
+            <table class="styled-table" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Aircraft ID</th>
+                        <th>Maintenance Date</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in maintenance_log %}
+                    <tr>
+                        <td>{{ log[0] }}</td>
+                        <td>{{ log[1] }}</td>
+                        <td>{{ log[2] }}</td>
+                        <td>{{ log[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2>Aircraft</h2>
+            <table class="styled-table" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>Aircraft ID</th>
+                        <th>Model</th>
+                        <th>Capacity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aircraft in aircraft_list %}
+                    <tr>
+                        <td>{{ aircraft[0] }}</td>
+                        <td>{{ aircraft[1] }}</td>
+                        <td>{{ aircraft[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2>Flights</h2>
+            <table class="styled-table" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>Flight ID</th>
+                        <th>Aircraft ID</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for flight in flight_list %}
+                    <tr>
+                        <td>{{ flight[0] }}</td>
+                        <td>{{ flight[1] }}</td>
+                        <td>{{ flight[2] }}</td>
+                        <td>{{ flight[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2>Airports</h2>
+            <table class="styled-table" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>Airport ID</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for airport in airport_list %}
+                    <tr>
+                        <td>{{ airport[0] }}</td>
+                        <td>{{ airport[1] }}</td>
+                        <td>{{ airport[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    <h2>Maintenance Log</h2>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Aircraft ID</th>
-                    <th>Maintenance Date</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for log in maintenance_log %}
-                <tr>
-                    <td>{{ log[0] }}</td>
-                    <td>{{ log[1] }}</td>
-                    <td>{{ log[2] }}</td>
-                    <td>{{ log[3] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <h2>Aircraft</h2>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Aircraft ID</th>
-                    <th>Model</th>
-                    <th>Capacity</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for aircraft in aircraft_list %}
-                <tr>
-                    <td>{{ aircraft[0] }}</td>
-                    <td>{{ aircraft[1] }}</td>
-                    <td>{{ aircraft[2] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <h2>Flights</h2>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Flight ID</th>
-                    <th>Aircraft ID</th>
-                    <th>Departure</th>
-                    <th>Arrival</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for flight in flight_list %}
-                <tr>
-                    <td>{{ flight[0] }}</td>
-                    <td>{{ flight[1] }}</td>
-                    <td>{{ flight[2] }}</td>
-                    <td>{{ flight[3] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <h2>Airports</h2>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Airport ID</th>
-                    <th>Name</th>
-                    <th>Location</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for airport in airport_list %}
-                <tr>
-                    <td>{{ airport[0] }}</td>
-                    <td>{{ airport[1] }}</td>
-                    <td>{{ airport[2] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-        
     <div class="masthead">
         <p>Luke Roth and Rohith Velmurugan 2024</p>
+    </div>
+</body>
 </html>
