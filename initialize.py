@@ -53,6 +53,17 @@ def initialize():
         ('N30TL', 800, 'Cessna 172 G1000', 870, 200, 4, 0.4, 'Active', 'Cessna', '2012-07-18', 'KSUS', 'KCPS'),
         ('N8177Y', 1000, 'Piper Saratoga', 1206, 400, 6, 0.6, 'Active', 'Piper', '2021-11-05', 'KSUS', 'KEVV')
     ])
+
+    # Insert sample data into flights table
+    cursor.executemany("""INSERT IGNORE INTO flights (scheduled_departure, scheduled_arrival, actual_departure, 
+        actual_arrival, passenger_count, projected_fuel_consumption, actual_fuel_consumption, distance, aircraft_id, origin_airport_id, destination_airport_id) 
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+    , [
+        ('2023-12-01 08:00:00', '2023-12-01 09:00:00', '2023-12-01 08:00:00', '2023-12-01 09:00:00', 4, 100, 100, 100, 'N739TA', 'KSGF', 'KSUS'),
+        ('2023-12-01 10:00:00', '2023-12-01 11:00:00', '2023-12-01 10:00:00', '2023-12-01 11:00:00', 4, 100, 100, 100, 'N1544C', 'KCOU', 'KSUS'),
+        ('2023-12-01 12:00:00', '2023-12-01 13:00:00', '2023-12-01 12:00:00', '2023-12-01 13:00:00', 4, 100, 100, 100, 'N30TL', 'KCPS', 'KSUS'),
+        ('2023-12-01 14:00:00', '2023-12-01 15:00:00', '2023-12-01 14:00:00', '2023-12-01 15:00:00', 4, 100, 100, 100, 'N8177Y', 'KEVV', 'KSUS')
+    ])
     
     db.commit()
     db.close()
