@@ -14,28 +14,30 @@ def dashboard():
 
 @app.route('/airports')
 def airports():
-    return render_template('airports.html')
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM airports")
+    airport_list = cursor.fetchall()
+    connection.close()
+    return render_template('airports.html', airport_list=airport_list)
 
 @app.route('/aircraft')
 def aircraft():
-    return render_template('aircraft.html')
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM aircrafts")
+    aircraft_list = cursor.fetchall()
+    connection.close()
+    return render_template('aircraft.html', aircraft_list=aircraft_list)
 
 @app.route('/flights')
 def flights():
     connection = mysql.connect()
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM airports")
-    airport_list = cursor.fetchall()
-    cursor.execute("SELECT * FROM aircrafts")
-    aircraft_list = cursor.fetchall()
     cursor.execute("SELECT * FROM flights")
     flight_list = cursor.fetchall()
-    cursor.execute("SELECT * FROM maintenance_schedule")
-    maintenance_schedule = cursor.fetchall()
-    cursor.execute("SELECT * FROM maintenance_log")
-    maintenance_log = cursor.fetchall()
     connection.close()
-    return render_template('flights.html', airport_list=airport_list, aircraft_list=aircraft_list, flight_list=flight_list, maintenance_schedule=maintenance_schedule, maintenance_log=maintenance_log)
+    return render_template('flights.html', flight_list=flight_list)
 
 @app.route('/specific_airport')
 def specific_airport():
