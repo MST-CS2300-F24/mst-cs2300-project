@@ -51,6 +51,26 @@ def specific_aircraft():
 def specific_flight():
     return render_template('specific_flight.html', id=request.args.get('id'))
 
+@app.route('/add_aircraft')
+def add_aircraft():
+    return render_template('add_aircraft.html')
+
+@app.route('/add_airport')
+def add_airport():
+    return render_template('add_airport.html')
+
+@app.route('/add_flight')
+def add_flight():
+    return render_template('add_flight.html')
+
+@app.route('/add_maintenance_log')
+def add_maintenance_log():
+    return render_template('add_maintenance_log.html')
+
+@app.route('/add_schedule_maintenance')
+def add_schedule_maintenance():
+    return render_template('add_schedule_maintenance.html')
+
 @app.route('/login')
 def login():
     error = request.args.get('error')
