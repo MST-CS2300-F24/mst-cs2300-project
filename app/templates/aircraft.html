@@ -15,42 +15,44 @@
     </div>
     <div>
         <h2>Aircraft</h2>
-        <table class="styled-table" style="background-color: white;">
-            <thead>
-                <tr>
-                    <th>Registration Code</th>
-                    <th>Range</th>
-                    <th>Model</th>
-                    <th>Weight Capacity</th>
-                    <th>Fuel Capacity</th>
-                    <th>Passenger Capacity</th>
-                    <th>Fuel Efficiency</th>
-                    <th>Status</th>
-                    <th>Manufacturer</th>
-                    <th>Manufacture Date</th>
-                    <th>Home Airport</th>
-                    <th>Latest Airport</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for aircraft in aircraft_list %}
-                <tr>
-                    <td>{{ aircraft[0] }}</td>
-                    <td>{{ aircraft[1] }}</td>
-                    <td>{{ aircraft[2] }}</td>
-                    <td>{{ aircraft[3] }}</td>
-                    <td>{{ aircraft[4] }}</td>
-                    <td>{{ aircraft[5] }}</td>
-                    <td>{{ aircraft[6] }}</td>
-                    <td>{{ aircraft[7] }}</td>
-                    <td>{{ aircraft[8] }}</td>
-                    <td>{{ aircraft[9] }}</td>
-                    <td>{{ aircraft[10] }}</td>
-                    <td>{{ aircraft[11] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table class="styled-table" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>Registration Code</th>
+                        <th>Range</th>
+                        <th>Model</th>
+                        <th>Weight Capacity</th>
+                        <th>Fuel Capacity</th>
+                        <th>Passenger Capacity</th>
+                        <th>Fuel Efficiency</th>
+                        <th>Status</th>
+                        <th>Manufacturer</th>
+                        <th>Manufacture Date</th>
+                        <th>Home Airport</th>
+                        <th>Latest Airport</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aircraft in aircraft_list %}
+                    <tr>
+                        <td>{{ aircraft[0] }}</td>
+                        <td>{{ aircraft[1] }}</td>
+                        <td>{{ aircraft[2] }}</td>
+                        <td>{{ aircraft[3] }}</td>
+                        <td>{{ aircraft[4] }}</td>
+                        <td>{{ aircraft[5] }}</td>
+                        <td>{{ aircraft[6] }}</td>
+                        <td>{{ aircraft[7] }}</td>
+                        <td>{{ aircraft[8] }}</td>
+                        <td>{{ aircraft[9] }}</td>
+                        <td>{{ aircraft[10] }}</td>
+                        <td>{{ aircraft[11] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="masthead">
         <p>Luke Roth and Rohith Velmurugan 2024</p>

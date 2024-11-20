@@ -16,26 +16,28 @@
     <div class="container" style="margin-top: 50px;">
         <div>
             <h2>Airports</h2>
-            <table class="styled-table" style="background-color: white;">
-                <thead>
-                    <tr>
-                        <th>ICAO Code</th>
-                        <th>Name</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for airport in airport_list %}
-                    <tr>
-                        <td>{{ airport[0] }}</td>
-                        <td>{{ airport[1] }}</td>
-                        <td>{{ airport[2] }}</td>
-                        <td>{{ airport[3] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table class="styled-table" style="background-color: white;">
+                    <thead>
+                        <tr>
+                            <th>ICAO Code</th>
+                            <th>Name</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for airport in airport_list %}
+                        <tr>
+                            <td>{{ airport[0] }}</td>
+                            <td>{{ airport[1] }}</td>
+                            <td>{{ airport[2] }}</td>
+                            <td>{{ airport[3] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
