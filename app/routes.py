@@ -1,4 +1,6 @@
 from flask import Blueprint, request, redirect, url_for, render_template
+import mysql.connector
+from . import mysql
 
 app = Blueprint('app', __name__)
 
@@ -20,7 +22,25 @@ def aircraft():
 
 @app.route('/manage')
 def manage():
-    return render_template('manage.html')
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM airports")
+    airports = cursor.fetchall()
+    print("Airports:", airports)  # Debugging statement
+    cursor.execute("SELECT * FROM aircrafts")
+    aircrafts = cursor.fetchall()
+    print("Aircrafts:", aircrafts)  # Debugging statement
+    cursor.execute("SELECT * FROM flights")
+    flights = cursor.fetchall()
+    print("Flights:", flights)  # Debugging statement
+    cursor.execute("SELECT * FROM maintenance_schedule")
+    maintenance_schedule = cursor.fetchall()
+    print("Maintenance Schedule:", maintenance_schedule)  # Debugging statement
+    cursor.execute("SELECT * FROM maintenance_log")
+    maintenance_log = cursor.fetchall()
+    print("Maintenance Log:", maintenance_log)  # Debugging statement
+    connection.close()
+    return render_template('manage.html', airports=airports, aircrafts=aircrafts, flights=flights, maintenance_schedule=maintenance_schedule, maintenance_log=maintenance_log)
 
 @app.route('/login')
 def login():
