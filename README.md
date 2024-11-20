@@ -13,3 +13,5 @@ python -m venv .env
 ```
 
 From here, install the necessary packages using the command `pip install -r requirments.txt`
+
+Change the MySQL login information in `MySQL.py` and `initialize.py` to mattch your MySQL server
