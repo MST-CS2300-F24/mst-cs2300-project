@@ -29,9 +29,9 @@ def initialize():
     cursor.execute("""CREATE TABLE IF NOT EXISTS maintenance_schedule (id INT AUTO_INCREMENT PRIMARY KEY, suggested_date DATE, description TEXT, aircraft_id VARCHAR(255),
             maintenance_location VARCHAR(255), FOREIGN KEY (aircraft_id) REFERENCES aircrafts(registration_code), FOREIGN KEY (maintenance_location) REFERENCES airports(icao_id))""")
     
-    # Create maintenance_history table
+    # Create maintenance_log table
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS maintenance_history (id INT AUTO_INCREMENT PRIMARY KEY, service_start DATE, service_finish DATE, description TEXT, aircraft_id VARCHAR(255),
+        CREATE TABLE IF NOT EXISTS maintenance_log (id INT AUTO_INCREMENT PRIMARY KEY, service_start DATE, service_finish DATE, description TEXT, aircraft_id VARCHAR(255),
             maintenance_location VARCHAR(255), FOREIGN KEY (aircraft_id) REFERENCES aircrafts(registration_code), FOREIGN KEY (maintenance_location) REFERENCES airports(icao_id))""")
     
     # Insert sample data into airports table
