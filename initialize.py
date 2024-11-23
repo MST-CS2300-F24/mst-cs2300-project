@@ -64,6 +64,26 @@ def initialize():
         ('2023-12-01 12:00:00', '2023-12-01 13:00:00', '2023-12-01 12:00:00', '2023-12-01 13:00:00', 4, 100, 100, 100, 'N30TL', 'KCPS', 'KSUS'),
         ('2023-12-01 14:00:00', '2023-12-01 15:00:00', '2023-12-01 14:00:00', '2023-12-01 15:00:00', 4, 100, 100, 100, 'N8177Y', 'KEVV', 'KSUS')
     ])
+
+    # Insert sample data into maintenance_schedule table
+    cursor.executemany("""INSERT IGNORE INTO maintenance_schedule (suggested_date, description, aircraft_id, maintenance_location) 
+        VALUES (%s, %s, %s, %s)"""
+    , [
+        ('2023-12-01', 'Scheduled maintenance', 'N739TA', 'KSUS'),
+        ('2023-12-01', 'Scheduled maintenance', 'N1544C', 'KSUS'),
+        ('2023-12-01', 'Scheduled maintenance', 'N30TL', 'KSUS'),
+        ('2023-12-01', 'Scheduled maintenance', 'N8177Y', 'KSUS')
+    ])
+
+    # Insert sample data into maintenance_log table
+    cursor.executemany("""INSERT IGNORE INTO maintenance_log (service_start, service_finish, description, aircraft_id, maintenance_location) 
+        VALUES (%s, %s, %s, %s, %s)"""
+    , [
+        ('2023-12-01', '2023-12-01', 'Scheduled maintenance', 'N739TA', 'KSUS'),
+        ('2023-12-01', '2023-12-01', 'Scheduled maintenance', 'N1544C', 'KSUS'),
+        ('2023-12-01', '2023-12-01', 'Scheduled maintenance', 'N30TL', 'KSUS'),
+        ('2023-12-01', '2023-12-01', 'Scheduled maintenance', 'N8177Y', 'KSUS')
+    ])
     
     db.commit()
     db.close()
