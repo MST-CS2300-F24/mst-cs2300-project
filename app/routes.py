@@ -51,6 +51,10 @@ def specific_aircraft():
 def specific_flight():
     return render_template('specific_flight.html', id=request.args.get('id'))
 
+@app.route('/add')
+def add():
+    return render_template('add.html')
+
 @app.route('/add_aircraft')
 def add_aircraft():
     return render_template('add_aircraft.html')

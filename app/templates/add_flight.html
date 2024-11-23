@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Site</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('app.home') }}">Home</a>
+        <a href="{{ url_for('app.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('app.aircraft') }}">Aircraft</a>
+        <a href="{{ url_for('app.airports') }}">Airports</a>
+        <a href="{{ url_for('app.flights') }}">Flights</a>
+        <a href="{{ url_for('app.add') }}">Add</a>
+        <a href="{{ url_for('app.login') }}">Logout</a>
+    </div>
+    <div class="content">
+        <div class="left-navbar" style="position: fixed; text-align: left;">
+            <a href="{{ url_for('app.add_aircraft') }}">Add Aircraft</a>
+            <a href="{{ url_for('app.add_airport') }}">Add Airport</a>
+            <a href="{{ url_for('app.add_flight') }}">Add Flight</a>
+            <a href="{{ url_for('app.add_maintenance_log') }}">Add Maintenance Log</a>
+            <a href="{{ url_for('app.add_schedule_maintenance') }}">Add Scheduled Maintenance</a>
+        </div>
+        <div class="form-container">
+            <form action="{{ url_for('app.add_flight') }}" method="post">
+                <label for="flight_id">Flight ID:</label>
+                <input type="text" id="flight_id" name="flight_id"><br>
+
+                <label for="scheduled_departure">Scheduled Departure:</label>
+                <input type="datetime-local" id="scheduled_departure" name="scheduled_departure"><br>
+
+                <label for="scheduled_arrival">Scheduled Arrival:</label>
+                <input type="datetime-local" id="scheduled_arrival" name="scheduled_arrival"><br>
+
+                <label for="actual_departure">Actual Departure:</label>
+                <input type="datetime-local" id="actual_departure" name="actual_departure"><br>
+
+                <label for="actual_arrival">Actual Arrival:</label>
+                <input type="datetime-local" id="actual_arrival" name="actual_arrival"><br>
+
+                <label for="passenger_count">Passenger Count:</label>
+                <input type="number" id="passenger_count" name="passenger_count"><br>
+
+                <label for="projected_fuel_consumption">Projected Fuel Consumption:</label>
+                <input type="number" id="projected_fuel_consumption" name="projected_fuel_consumption"><br>
+
+                <label for="actual_fuel_consumption">Actual Fuel Consumption:</label>
+                <input type="number" id="actual_fuel_consumption" name="actual_fuel_consumption"><br>
+
+                <label for="distance">Distance:</label>
+                <input type="number" id="distance" name="distance"><br>
+
+                <label for="aircraft_id">Aircraft ID:</label>
+                <input type="text" id="aircraft_id" name="aircraft_id"><br>
+
+                <label for="arrival_airport">Arrival Airport:</label>
+                <input type="text" id="arrival_airport" name="arrival_airport"><br>
+
+                <label for="departure_airport">Departure Airport:</label>
+                <input type="text" id="departure_airport" name="departure_airport"><br>
+                
+                <input type="submit" value="Add Flight">
+            </form>
+        </div>
+    </div>
+    <div class="masthead">
+        <p>Luke Roth and Rohith Velmurugan 2024</p>
+    </div>
+</body>
+</html>

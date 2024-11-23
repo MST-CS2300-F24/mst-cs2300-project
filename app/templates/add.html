@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Site</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -15,8 +15,14 @@
         <a href="{{ url_for('app.login') }}">Logout</a>
     </div>
     <div class="content">
-        <h1>Dashboard</h1>
-        <p>Here is a dashboard:</p>
+        <div class="left-navbar" style="position: fixed; text-align: left;">
+            <a href="{{ url_for('app.add_aircraft') }}">Add Aircraft</a>
+            <a href="{{ url_for('app.add_airport') }}">Add Airport</a>
+            <a href="{{ url_for('app.add_flight') }}">Add Flight</a>
+            <a href="{{ url_for('app.add_maintenance_log') }}">Add Maintenance Log</a>
+            <a href="{{ url_for('app.add_schedule_maintenance') }}">Add Scheduled Maintenance</a>
+        </div>
+        <h1>Select Your Addition Type</h1>
     </div>
     <div class="masthead">
         <p>Luke Roth and Rohith Velmurugan 2024</p>

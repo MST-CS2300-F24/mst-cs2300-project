@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Site</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('app.home') }}">Home</a>
+        <a href="{{ url_for('app.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('app.aircraft') }}">Aircraft</a>
+        <a href="{{ url_for('app.airports') }}">Airports</a>
+        <a href="{{ url_for('app.flights') }}">Flights</a>
+        <a href="{{ url_for('app.add') }}">Add</a>
+        <a href="{{ url_for('app.login') }}">Logout</a>
+    </div>
+    <div class="content">
+        <div class="left-navbar" style="position: fixed; text-align: left;">
+            <a href="{{ url_for('app.add_aircraft') }}">Add Aircraft</a>
+            <a href="{{ url_for('app.add_airport') }}">Add Airport</a>
+            <a href="{{ url_for('app.add_flight') }}">Add Flight</a>
+            <a href="{{ url_for('app.add_maintenance_log') }}">Add Maintenance Log</a>
+            <a href="{{ url_for('app.add_schedule_maintenance') }}">Add Scheduled Maintenance</a>
+        </div>
+        <div class="form-container">
+            <form action="{{ url_for('app.add_maintenance_log') }}" method="post">
+                <label for="service_start">Service Start:</label>
+                <input type="date" id="service_start" name="service_start" required><br>
+
+                <label for="service_finish">Service Finish:</label>
+                <input type="date" id="service_finish" name="service_finish" required><br>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea><br>
+
+                <label for="aircraft_id">Aircraft ID:</label>
+                <input type="text" id="aircraft_id" name="aircraft_id" required><br>
+
+                <label for="maintenance_location">Maintenance Location:</label>
+                <input type="text" id="maintenance_location" name="maintenance_location" required><br>
+
+                <input type="submit" value="Add Maintenance Log">
+            </form>
+        </div>
+    </div>
+    <div class="masthead">
+        <p>Luke Roth and Rohith Velmurugan 2024</p>
+    </div>
+</body>
+</html>
