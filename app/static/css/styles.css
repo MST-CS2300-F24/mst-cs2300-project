@@ -230,3 +230,25 @@ h2 {
 .grid-item ul li {
     padding: 5px 0;
 }
+
+.text-box-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.text-box-center h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+.text-box-center p {
+    font-size: 1.2em;
+}
