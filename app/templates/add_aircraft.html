@@ -22,25 +22,43 @@
             <a href="{{ url_for('app.add_maintenance_log') }}">Add Maintenance Log</a>
             <a href="{{ url_for('app.add_schedule_maintenance') }}">Add Scheduled Maintenance</a>
         </div>
-        <div class="form-container">
+        <div class="form-container" style="height: 700px; overflow-y: auto;">
             <form action="{{ url_for('app.add_aircraft') }}" method="post">
-                <label for="aircraft_id">Aircraft ID:</label>
-                <input type="text" id="aircraft_id" name="aircraft_id"><br><br>
+                <label for="registration_code">Registration Code:</label>
+                <input type="text" id="registration_code" name="registration_code"><br><br>
+                
+                <label for="flight_range">Flight Range:</label>
+                <input type="text" id="flight_range" name="flight_range"><br><br>
                 
                 <label for="model">Model:</label>
                 <input type="text" id="model" name="model"><br><br>
                 
-                <label for="manufacturer">Manufacturer:</label>
-                <input type="text" id="manufacturer" name="manufacturer"><br><br>
+                <label for="weight_capacity">Weight Capacity:</label>
+                <input type="text" id="weight_capacity" name="weight_capacity"><br><br>
                 
-                <label for="year">Year:</label>
-                <input type="text" id="year" name="year"><br><br>
+                <label for="fuel_capacity">Fuel Capacity:</label>
+                <input type="text" id="fuel_capacity" name="fuel_capacity"><br><br>
                 
-                <label for="capacity">Capacity:</label>
-                <input type="text" id="capacity" name="capacity"><br><br>
+                <label for="passenger_capacity">Passenger Capacity:</label>
+                <input type="text" id="passenger_capacity" name="passenger_capacity"><br><br>
+                
+                <label for="fuel_efficiency">Fuel Efficiency:</label>
+                <input type="text" id="fuel_efficiency" name="fuel_efficiency"><br><br>
                 
                 <label for="status">Status:</label>
                 <input type="text" id="status" name="status"><br><br>
+                
+                <label for="manufacturer">Manufacturer:</label>
+                <input type="text" id="manufacturer" name="manufacturer"><br><br>
+                
+                <label for="manufacture_date">Manufacture Date:</label>
+                <input type="text" id="manufacture_date" name="manufacture_date"><br><br>
+                
+                <label for="home_airport_id">Home Airport ID:</label>
+                <input type="text" id="home_airport_id" name="home_airport_id"><br><br>
+                
+                <label for="latest_arrival_airport_id">Latest Arrival Airport ID:</label>
+                <input type="text" id="latest_arrival_airport_id" name="latest_arrival_airport_id"><br><br>
                 
                 <input type="submit" value="Add Aircraft">
             </form>
