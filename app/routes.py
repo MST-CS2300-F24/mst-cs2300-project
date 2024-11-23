@@ -10,7 +10,93 @@ def home():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    connection = mysql.connect()
+    cursor = connection.cursor()
+
+    # Overall average flights per plane
+    cursor.execute("""
+        SELECT AVG(flight_count) AS overall_avg_flights
+        FROM (
+            SELECT COUNT(*) AS flight_count
+            FROM flights
+            GROUP BY aircraft_id
+        ) AS subquery
+    """)
+    overall_avg_flights = "{:.2f}".format(cursor.fetchone()[0])
+
+    # Most flown aircraft
+    cursor.execute("""
+        SELECT aircraft_id, COUNT(*) AS flight_count
+        FROM flights
+        GROUP BY aircraft_id
+        ORDER BY flight_count DESC
+        LIMIT 3
+    """)
+    most_flown_aircraft = cursor.fetchall()
+
+    # Most visited airports
+    cursor.execute("""
+        SELECT origin_airport_id, COUNT(*) AS visit_count
+        FROM flights
+        GROUP BY origin_airport_id
+        ORDER BY visit_count DESC
+        LIMIT 3
+    """)
+    most_visited_airports = cursor.fetchall()
+
+    # Least visited airports
+    cursor.execute("""
+        SELECT origin_airport_id, COUNT(*) AS visit_count
+        FROM flights
+        GROUP BY origin_airport_id
+        ORDER BY visit_count ASC
+        LIMIT 3
+    """)
+    least_visited_airports = cursor.fetchall()
+
+    # Number of scheduled maintenances in the coming week
+    cursor.execute("""
+        SELECT COUNT(*) AS maintenance_count
+        FROM maintenance_schedule
+        WHERE suggested_date >= CURDATE() AND suggested_date < CURDATE() + INTERVAL 7 DAY
+    """)
+    scheduled_maintenances = cursor.fetchone()[0]
+
+    # Average flight distance
+    cursor.execute("""
+        SELECT AVG(distance) AS average_flight_distance
+        FROM flights
+    """)
+    average_flight_distance = "{:.2f}".format(cursor.fetchone()[0])
+
+    # Average flight time
+    cursor.execute("""
+        SELECT AVG(TIMESTAMPDIFF(MINUTE, scheduled_departure, scheduled_arrival)) AS average_flight_time
+        FROM flights
+    """)
+    average_flight_time = "{:.2f}".format(cursor.fetchone()[0])
+
+    # Most common aircraft types
+    cursor.execute("""
+        SELECT model, COUNT(*) AS count
+        FROM aircrafts
+        GROUP BY model
+        ORDER BY count DESC
+        LIMIT 1
+    """)
+    most_common_aircraft_types = cursor.fetchone()[0]
+
+    connection.close()
+
+    return render_template('dashboard.html', 
+                           overall_avg_flights=overall_avg_flights, 
+                           most_flown_aircraft=most_flown_aircraft, 
+                           most_visited_airports=most_visited_airports, 
+                           least_visited_airports=least_visited_airports, 
+                           scheduled_maintenances=scheduled_maintenances, 
+                           average_flight_distance=average_flight_distance, 
+                           average_flight_time=average_flight_time, 
+                           most_common_aircraft_types=most_common_aircraft_types)
 
 @app.route('/airports')
 def airports():
