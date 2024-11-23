@@ -17,6 +17,74 @@
     <div class="container" style="margin-top: 50px;">
         <div>
             <h2>Flights</h2>
+            <div class="search-container">
+                <form method="GET" action="{{ url_for('app.flights') }}">
+                    <input type="text" name="scheduled_departure" placeholder="Scheduled Departure">
+                    <select name="scheduled_departure_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="scheduled_arrival" placeholder="Scheduled Arrival">
+                    <select name="scheduled_arrival_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="actual_departure" placeholder="Actual Departure">
+                    <select name="actual_departure_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="actual_arrival" placeholder="Actual Arrival">
+                    <select name="actual_arrival_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="passenger_count" placeholder="Passenger Count">
+                    <select name="passenger_count_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="projected_fuel_consumption" placeholder="Projected Fuel Consumption">
+                    <select name="projected_fuel_consumption_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="actual_fuel_consumption" placeholder="Actual Fuel Consumption">
+                    <select name="actual_fuel_consumption_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="distance" placeholder="Distance">
+                    <select name="distance_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="aircraft_id" placeholder="Aircraft ID">
+                    <select name="aircraft_id_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <input type="text" name="arrival_airport" placeholder="Arrival Airport">
+                    <select name="arrival_airport_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <input type="text" name="departure_airport" placeholder="Departure Airport">
+                    <select name="departure_airport_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
             <div class="table-container">
                 <table class="styled-table" style="background-color: white;">
                     <thead>

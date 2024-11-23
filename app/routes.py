@@ -100,29 +100,140 @@ def dashboard():
 
 @app.route('/airports')
 def airports():
+    search_params = {
+        'icao_id': request.args.get('icao_id'),
+        'civilian_name': request.args.get('civilian_name'),
+        'latitude': request.args.get('latitude'),
+        'longitude': request.args.get('longitude')
+    }
+    
+    operators = {
+        'icao_id': request.args.get('icao_id_operator', '='),
+        'civilian_name': request.args.get('civilian_name_operator', '='),
+        'latitude': request.args.get('latitude_operator', '='),
+        'longitude': request.args.get('longitude_operator', '=')
+    }
+    
+    query = "SELECT * FROM airports WHERE 1=1"
+    params = []
+    
+    for field, value in search_params.items():
+        if value:
+            if operators[field] == "contains":
+                query += f" AND `{field}` LIKE %s"
+                params.append(f"%{value}%")
+            else:
+                query += f" AND `{field}` {operators[field]} %s"
+                params.append(value)
+    
     connection = mysql.connect()
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM airports")
+    cursor.execute(query, params)
     airport_list = cursor.fetchall()
     connection.close()
+    
     return render_template('airports.html', airport_list=airport_list)
 
 @app.route('/aircraft')
 def aircraft():
+    search_params = {
+        'registration_code': request.args.get('registration_code'),
+        'flight_range': request.args.get('flight_range'),
+        'model': request.args.get('model'),
+        'weight_capacity': request.args.get('weight_capacity'),
+        'fuel_capacity': request.args.get('fuel_capacity'),
+        'passenger_capacity': request.args.get('passenger_capacity'),
+        'fuel_efficiency': request.args.get('fuel_efficiency'),
+        'status': request.args.get('status'),
+        'manufacturer': request.args.get('manufacturer'),
+        'manufacture_date': request.args.get('manufacture_date'),
+        'home_airport_id': request.args.get('home_airport'),
+        'latest_arrival_airport_id': request.args.get('latest_airport')
+    }
+    
+    operators = {
+        'registration_code': request.args.get('registration_code_operator', '='),
+        'flight_range': request.args.get('flight_range_operator', '='),
+        'model': request.args.get('model_operator', '='),
+        'weight_capacity': request.args.get('weight_capacity_operator', '='),
+        'fuel_capacity': request.args.get('fuel_capacity_operator', '='),
+        'passenger_capacity': request.args.get('passenger_capacity_operator', '='),
+        'fuel_efficiency': request.args.get('fuel_efficiency_operator', '='),
+        'status': request.args.get('status_operator', '='),
+        'manufacturer': request.args.get('manufacturer_operator', '='),
+        'manufacture_date': request.args.get('manufacture_date_operator', '='),
+        'home_airport_id': request.args.get('home_airport_operator', '='),
+        'latest_arrival_airport_id': request.args.get('latest_airport_operator', '=')
+    }
+    
+    query = "SELECT * FROM aircrafts WHERE 1=1"
+    params = []
+    
+    for field, value in search_params.items():
+        if value:
+            if operators[field] == "contains":
+                query += f" AND `{field}` LIKE %s"
+                params.append(f"%{value}%")
+            else:
+                query += f" AND `{field}` {operators[field]} %s"
+                params.append(value)
+    
     connection = mysql.connect()
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM aircrafts")
+    cursor.execute(query, params)
     aircraft_list = cursor.fetchall()
     connection.close()
+    
     return render_template('aircraft.html', aircraft_list=aircraft_list)
 
 @app.route('/flights')
 def flights():
+    search_params = {
+        'scheduled_departure': request.args.get('scheduled_departure'),
+        'scheduled_arrival': request.args.get('scheduled_arrival'),
+        'actual_departure': request.args.get('actual_departure'),
+        'actual_arrival': request.args.get('actual_arrival'),
+        'passenger_count': request.args.get('passenger_count'),
+        'projected_fuel_consumption': request.args.get('projected_fuel_consumption'),
+        'actual_fuel_consumption': request.args.get('actual_fuel_consumption'),
+        'distance': request.args.get('distance'),
+        'aircraft_id': request.args.get('aircraft_id'),
+        'arrival_airport': request.args.get('arrival_airport'),
+        'departure_airport': request.args.get('departure_airport')
+    }
+    
+    operators = {
+        'scheduled_departure': request.args.get('scheduled_departure_operator', '='),
+        'scheduled_arrival': request.args.get('scheduled_arrival_operator', '='),
+        'actual_departure': request.args.get('actual_departure_operator', '='),
+        'actual_arrival': request.args.get('actual_arrival_operator', '='),
+        'passenger_count': request.args.get('passenger_count_operator', '='),
+        'projected_fuel_consumption': request.args.get('projected_fuel_consumption_operator', '='),
+        'actual_fuel_consumption': request.args.get('actual_fuel_consumption_operator', '='),
+        'distance': request.args.get('distance_operator', '='),
+        'aircraft_id': request.args.get('aircraft_id_operator', '='),
+        'arrival_airport': request.args.get('arrival_airport_operator', '='),
+        'departure_airport': request.args.get('departure_airport_operator', '=')
+    }
+    
+    query = "SELECT * FROM flights WHERE 1=1"
+    params = []
+    
+    for field, value in search_params.items():
+        if value:
+            if operators[field] == "contains":
+                query += f" AND `{field}` LIKE %s"
+                params.append(f"%{value}%")
+            else:
+                query += f" AND `{field}` {operators[field]} %s"
+                params.append(value)
+    
     connection = mysql.connect()
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM flights")
+    cursor.execute(query, params)
     flight_list = cursor.fetchall()
     connection.close()
+    
     return render_template('flights.html', flight_list=flight_list)
 
 @app.route('/specific_airport')

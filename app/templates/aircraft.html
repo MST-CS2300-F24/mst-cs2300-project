@@ -17,6 +17,77 @@
     <div class="container" style="margin-top: 50px;">
         <div>
             <h2>Aircraft</h2>
+            <div class="search-container">
+                <form method="GET" action="{{ url_for('app.aircraft') }}">
+                    <input type="text" name="registration_code" placeholder="Registration Code">
+                    <select name="registration_code_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <input type="text" name="flight_range" placeholder="Range">
+                    <select name="flight_range_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="model" placeholder="Model">
+                    <select name="model_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <input type="text" name="weight_capacity" placeholder="Weight Capacity">
+                    <select name="weight_capacity_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="fuel_capacity" placeholder="Fuel Capacity">
+                    <select name="fuel_capacity_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="passenger_capacity" placeholder="Passenger Capacity">
+                    <select name="passenger_capacity_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="fuel_efficiency" placeholder="Fuel Efficiency">
+                    <select name="fuel_efficiency_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="status" placeholder="Status">
+                    <select name="status_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <input type="text" name="manufacturer" placeholder="Manufacturer">
+                    <select name="manufacturer_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <input type="text" name="manufacture_date" placeholder="Manufacture Date">
+                    <select name="manufacture_date_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="home_airport" placeholder="Home Airport">
+                    <select name="home_airport_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <input type="text" name="latest_airport" placeholder="Latest Airport">
+                    <select name="latest_airport_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
             <div class="table-container">
                 <table class="styled-table" style="background-color: white;">
                     <thead>
