@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Aircraft</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('app.home') }}">Home</a>
+        <a href="{{ url_for('app.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('app.aircraft') }}">Aircraft</a>
+        <a href="{{ url_for('app.airports') }}">Airports</a>
+        <a href="{{ url_for('app.flights') }}">Flights</a>
+        <a href="{{ url_for('app.add') }}">Add</a>
+        <a href="{{ url_for('app.login') }}">Logout</a>
+    </div>
+    <div="container">
+        <h2>Edit Aircraft</h2>
+    </div>
+    <div class="table-container">
+        <table class="styled-table" style="background-color: white;">
+            <thead>
+                <tr>
+                    <th>Registration Code</th>
+                    <th>Range</th>
+                    <th>Model</th>
+                    <th>Weight Capacity</th>
+                    <th>Fuel Capacity</th>
+                    <th>Passenger Capacity</th>
+                    <th>Fuel Efficiency</th>
+                    <th>Status</th>
+                    <th>Manufacturer</th>
+                    <th>Manufacture Date</th>
+                    <th>Home Airport</th>
+                    <th>Latest Airport</th>
+                    <th>Save</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ aircraft[0] }}</td>
+                    <td>{{ aircraft[1] }}</td>
+                    <td>{{ aircraft[2] }}</td>
+                    <td>{{ aircraft[3] }}</td>
+                    <td>{{ aircraft[4] }}</td>
+                    <td>{{ aircraft[5] }}</td>
+                    <td>{{ aircraft[6] }}</td>
+                    <td>{{ aircraft[7] }}</td>
+                    <td>{{ aircraft[8] }}</td>
+                    <td>{{ aircraft[9] }}</td>
+                    <td>{{ aircraft[10] }}</td>
+                    <td>{{ aircraft[11] }}</td>
+                </tr>
+                <form action="{{ url_for('app.edit_aircraft', registration_code=aircraft[0]) }}" method="post">
+                    <tr>
+                        <td>
+                            <label for="registration_code">Registration Code:</label>
+                            <input type="text" id="registration_code" name="registration_code" value="{{ aircraft[0] }}">
+                        </td>
+                        <td>
+                            <label for="flight_range">Flight Range:</label>
+                            <input type="text" id="flight_range" name="flight_range" value="{{ aircraft[1] }}">
+                        </td>
+                        <td>
+                            <label for="model">Model:</label>
+                            <input type="text" id="model" name="model" value="{{ aircraft[2] }}">
+                        </td>
+                        <td>
+                            <label for="weight_capacity">Weight Capacity:</label>
+                            <input type="text" id="weight_capacity" name="weight_capacity" value="{{ aircraft[3] }}">
+                        </td>
+                        <td>
+                            <label for="fuel_capacity">Fuel Capacity:</label>
+                            <input type="text" id="fuel_capacity" name="fuel_capacity" value="{{ aircraft[4] }}">
+                        </td>
+                        <td>
+                            <label for="passenger_capacity">Passenger Capacity:</label>
+                            <input type="text" id="passenger_capacity" name="passenger_capacity" value="{{ aircraft[5] }}">
+                        </td>
+                        <td>
+                            <label for="fuel_efficiency">Fuel Efficiency:</label>
+                            <input type="text" id="fuel_efficiency" name="fuel_efficiency" value="{{ aircraft[6] }}">
+                        </td>
+                        <td>
+                            <label for="status">Status:</label>
+                            <input type="text" id="status" name="status" value="{{ aircraft[7] }}">
+                        </td>
+                        <td>
+                            <label for="manufacturer">Manufacturer:</label>
+                            <input type="text" id="manufacturer" name="manufacturer" value="{{ aircraft[8] }}">
+                        </td>
+                        <td>
+                            <label for="manufacture_date">Manufacture Date:</label>
+                            <input type="date" id="manufacture_date" name="manufacture_date" value="{{ aircraft[9] }}">
+                        </td>
+                        <td>
+                            <label for="home_airport_id">Home Airport ID:</label>
+                            <input type="text" id="home_airport_id" name="home_airport_id" value="{{ aircraft[10] }}">
+                        </td>
+                        <td>
+                            <label for="latest_arrival_airport_id">Latest Arrival Airport ID:</label>
+                            <input type="text" id="latest_arrival_airport_id" name="latest_arrival_airport_id" value="{{ aircraft[11] }}">
+                        </td>
+                        <td>
+                            <button type="submit">Save</button>
+                        </td>
+                    </tr>
+                </form>
+            </tbody>
+        </table>
+    </div>
+    <div class="masthead">
+        <p>Luke Roth and Rohith Velmurugan 2024</p>
+    </div>
+</body>
+</html>

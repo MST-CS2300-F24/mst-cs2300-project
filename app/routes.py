@@ -236,17 +236,102 @@ def flights():
     
     return render_template('flights.html', flight_list=flight_list)
 
-@app.route('/specific_airport')
-def specific_airport():
-    return render_template('specific_airport.html', icao_id=request.args.get('icao_id'))
+@app.route('/edit_airport/<icao_id>', methods=['GET', 'POST'])
+def edit_airport(icao_id):
+    if request.method == 'POST':
+        # Process form data
+        civilian_name = request.form['civilian_name']
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
 
-@app.route('/specific_aircraft')
-def specific_aircraft():
-    return render_template('specific_aircraft.html', registration_code=request.args.get('registration_code'))
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        cursor.execute("""
+            UPDATE airports
+            SET civilian_name = %s, latitude = %s, longitude = %s
+            WHERE icao_id = %s
+        """, (civilian_name, latitude, longitude, icao_id))
+        connection.commit()
+        connection.close()
 
-@app.route('/specific_flight')
-def specific_flight():
-    return render_template('specific_flight.html', id=request.args.get('id'))
+        return redirect(url_for('app.airports'))
+
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM airports WHERE icao_id = %s", (icao_id,))
+    airport = cursor.fetchone()
+    connection.close()
+    return render_template('edit_airport.html', icao_id=icao_id, airport=airport)
+
+@app.route('/edit_aircraft/<registration_code>', methods=['GET', 'POST'])
+def edit_aircraft(registration_code):
+    if request.method == 'POST':
+        # Process form data
+        flight_range = request.form['flight_range']
+        model = request.form['model']
+        weight_capacity = request.form['weight_capacity']
+        fuel_capacity = request.form['fuel_capacity']
+        passenger_capacity = request.form['passenger_capacity']
+        fuel_efficiency = request.form['fuel_efficiency']
+        status = request.form['status']
+        manufacturer = request.form['manufacturer']
+        manufacture_date = request.form['manufacture_date']
+        home_airport_id = request.form['home_airport_id']
+        latest_arrival_airport_id = request.form['latest_arrival_airport_id']
+
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        cursor.execute("""
+            UPDATE aircrafts
+            SET flight_range = %s, model = %s, weight_capacity = %s, fuel_capacity = %s, passenger_capacity = %s, fuel_efficiency = %s, status = %s, manufacturer = %s, manufacture_date = %s, home_airport_id = %s, latest_arrival_airport_id = %s
+            WHERE registration_code = %s
+        """, (flight_range, model, weight_capacity, fuel_capacity, passenger_capacity, fuel_efficiency, status, manufacturer, manufacture_date, home_airport_id, latest_arrival_airport_id, registration_code))
+        connection.commit()
+        connection.close()
+
+        return redirect(url_for('app.aircraft'))
+
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM aircrafts WHERE registration_code = %s", (registration_code,))
+    aircraft = cursor.fetchone()
+    connection.close()
+    return render_template('edit_aircraft.html', registration_code=registration_code, aircraft=aircraft)
+
+@app.route('/edit_flight/<flight_id>', methods=['GET', 'POST'])
+def edit_flight(flight_id):
+    if request.method == 'POST':
+        # Process form data
+        scheduled_departure = request.form['scheduled_departure']
+        scheduled_arrival = request.form['scheduled_arrival']
+        actual_departure = request.form['actual_departure']
+        actual_arrival = request.form['actual_arrival']
+        passenger_count = request.form['passenger_count']
+        projected_fuel_consumption = request.form['projected_fuel_consumption']
+        actual_fuel_consumption = request.form['actual_fuel_consumption']
+        distance = request.form['distance']
+        aircraft_id = request.form['aircraft_id']
+        arrival_airport = request.form['arrival_airport']
+        departure_airport = request.form['departure_airport']
+
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        cursor.execute("""
+            UPDATE flights
+            SET scheduled_departure = %s, scheduled_arrival = %s, actual_departure = %s, actual_arrival = %s, passenger_count = %s, projected_fuel_consumption = %s, actual_fuel_consumption = %s, distance = %s, aircraft_id = %s, arrival_airport = %s, departure_airport = %s
+            WHERE flight_id = %s
+        """, (scheduled_departure, scheduled_arrival, actual_departure, actual_arrival, passenger_count, projected_fuel_consumption, actual_fuel_consumption, distance, aircraft_id, arrival_airport, departure_airport, flight_id))
+        connection.commit()
+        connection.close()
+
+        return redirect(url_for('app.flights'))
+
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM flights WHERE flight_id = %s", (flight_id,))
+    flight = cursor.fetchone()
+    connection.close()
+    return render_template('edit_flight.html', flight_id=flight_id, flight=flight)
 
 @app.route('/add')
 def add():
@@ -384,9 +469,6 @@ def add_flight():
             aircraft_id = None
         if destination_airport_id == '':
             destination_airport_id = None
-        
-        print(scheduled_departure, scheduled_arrival, actual_departure, actual_arrival, passenger_count, projected_fuel_consumption, actual_fuel_consumption, distance, aircraft_id, destination_airport_id, origin_airport_id)
-
 
         connection = mysql.connect()
         cursor = connection.cursor()

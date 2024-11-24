@@ -104,6 +104,7 @@
                             <th>Manufacture Date</th>
                             <th>Home Airport</th>
                             <th>Latest Airport</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -121,6 +122,7 @@
                             <td>{{ aircraft[9] }}</td>
                             <td>{{ aircraft[10] }}</td>
                             <td>{{ aircraft[11] }}</td>
+                            <td><a href="{{ url_for('app.edit_aircraft', registration_code=aircraft[0]) }}">Edit</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

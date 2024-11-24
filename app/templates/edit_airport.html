@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Airport</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('app.home') }}">Home</a>
+        <a href="{{ url_for('app.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('app.aircraft') }}">Aircraft</a>
+        <a href="{{ url_for('app.airports') }}">Airports</a>
+        <a href="{{ url_for('app.flights') }}">Flights</a>
+        <a href="{{ url_for('app.add') }}">Add</a>
+        <a href="{{ url_for('app.login') }}">Logout</a>
+    </div>
+    <div="container">
+        <h2>Edit Airport</h2>
+    </div>
+    <div class="table-container">
+        <table class="styled-table" style="background-color: white;">
+            <thead>
+                <tr>
+                    <th>ICAO ID</th>
+                    <th>Civilian Name</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Save</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ airport[0] }}</td>
+                    <td>{{ airport[1] }}</td>
+                    <td>{{ airport[2] }}</td>
+                    <td>{{ airport[3] }}</td>
+                </tr>
+                <form action="{{ url_for('app.edit_airport', icao_id=airport[0]) }}" method="post">
+                    <tr>
+                        <td>
+                            <label for="icao_id">ICAO ID:</label>
+                            <input type="text" id="icao_id" name="icao_id" value="{{ airport[0] }}" readonly>
+                        </td>
+                        <td>
+                            <label for="civilian_name">Civilian Name:</label>
+                            <input type="text" id="civilian_name" name="civilian_name" value="{{ airport[1] }}">
+                        </td>
+                        <td>
+                            <label for="latitude">Latitude:</label>
+                            <input type="text" id="latitude" name="latitude" value="{{ airport[2] }}">
+                        </td>
+                        <td>
+                            <label for="longitude">Longitude:</label>
+                            <input type="text" id="longitude" name="longitude" value="{{ airport[3] }}">
+                        </td>
+                        <td>
+                            <button type="submit">Save</button>
+                        </td>
+                    </tr>
+                </form>
+            </tbody>
+        </table>
+    </div>
+    <div class="masthead">
+        <p>Luke Roth and Rohith Velmurugan 2024</p>
+    </div>
+</body>
+</html>
