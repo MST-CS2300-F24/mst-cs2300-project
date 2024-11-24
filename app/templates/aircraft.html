@@ -107,6 +107,7 @@
                             <th>Home Airport</th>
                             <th>Latest Airport</th>
                             <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -125,11 +126,17 @@
                             <td>{{ aircraft[10] }}</td>
                             <td>{{ aircraft[11] }}</td>
                             <td><a href="{{ url_for('app.edit_aircraft', registration_code=aircraft[0]) }}">Edit</a></td>
+                            <td><a href="{{ url_for('app.delete_aircraft', registration_code=aircraft[0]) }}" style="color: red;">Delete</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="export-container" style="margin-top: 20px;">
+            <form method="POST" action="{{ url_for('app.export_aircraft') }}">
+                <button type="submit">Export as Excel</button>
+            </form>
         </div>
     </div>
     <div class="masthead">

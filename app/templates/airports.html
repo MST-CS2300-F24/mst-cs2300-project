@@ -55,6 +55,7 @@
                             <th>Latitude</th>
                             <th>Longitude</th>
                             <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,13 +66,19 @@
                             <td>{{ airport[2] }}</td>
                             <td>{{ airport[3] }}</td>
                             <td><a href="{{ url_for('app.edit_airport', icao_id=airport[0]) }}">Edit</a></td>
+                            <td><a href="{{ url_for('app.delete_airport', icao_id=airport[0]) }}" style="color: red;">Delete</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+        <div class="export-container" style="margin-top: 20px;">
+            <form method="POST" action="{{ url_for('app.export_airports') }}">
+                <button type="submit">Export as Excel</button>
+            </form>
         </div>
     </div>
     <div class="masthead">
         <p>Luke Roth and Rohith Velmurugan 2024</p>
+    </div>
 </html>

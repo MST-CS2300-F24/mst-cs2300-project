@@ -286,3 +286,22 @@ h2 {
     border-radius: 5px;
     box-sizing: border-box;
 }
+
+.export-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.export-container input[type="submit"] {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.export-container input[type="submit"]:hover {
+    background-color: #555;
+}

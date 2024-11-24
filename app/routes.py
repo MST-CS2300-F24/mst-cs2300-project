@@ -1,6 +1,8 @@
-from flask import Blueprint, request, redirect, url_for, render_template, flash
+from flask import Blueprint, request, redirect, url_for, render_template, make_response
 import mysql.connector
 from . import mysql
+import csv
+import io
 
 app = Blueprint('app', __name__)
 
@@ -668,6 +670,141 @@ def add_schedule_maintenance():
 
         return redirect(url_for('app.add_schedule_maintenance'))
     return render_template('add_schedule_maintenance.html')
+
+@app.route('/delete_airport/<icao_id>')
+def delete_airport(icao_id):
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM airports WHERE icao_id = %s", (icao_id,))
+    connection.commit()
+    connection.close()
+    return redirect(url_for('app.airports'))
+
+@app.route('/delete_aircraft/<registration_code>')
+def delete_aircraft(registration_code):
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM aircrafts WHERE registration_code = %s", (registration_code,))
+    connection.commit()
+    connection.close()
+    return redirect(url_for('app.aircraft'))
+
+@app.route('/delete_flight/<flight_id>')
+def delete_flight(flight_id):
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM flights WHERE flight_id = %s", (flight_id,))
+    connection.commit()
+    connection.close()
+    return redirect(url_for('app.flights'))
+
+@app.route('/delete_maintenance_log/<id>')
+def delete_maintenance_log(id):
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM maintenance_log WHERE id = %s", (id,))
+    connection.commit()
+    connection.close()
+    return redirect(url_for('app.maintenance_logs'))
+
+@app.route('/delete_maintenance_schedule/<id>')
+def delete_maintenance_schedule(id):
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM maintenance_schedule WHERE id = %s", (id,))
+    connection.commit()
+    connection.close()
+    return redirect(url_for('app.maintenance_schedules'))
+
+@app.route('/export_aircraft', methods=['POST']) 
+def export_aircraft():
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM aircrafts")
+    aircraft_list = cursor.fetchall()
+    connection.close()
+
+    si = io.StringIO()
+    cw = csv.writer(si)
+    cw.writerow([i[0] for i in cursor.description])
+    cw.writerows(aircraft_list)
+    output = si.getvalue()
+    response = make_response(output)
+    response.headers["Content-Disposition"] = "attachment; filename=aircraft.csv"
+    response.headers["Content-type"] = "text/csv"
+    return response
+
+@app.route('/export_airports', methods=['POST'])
+def export_airports():
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM airports")
+    airport_list = cursor.fetchall()
+    connection.close()
+
+    si = io.StringIO()
+    cw = csv.writer(si)
+    cw.writerow([i[0] for i in cursor.description])
+    cw.writerows(airport_list)
+    output = si.getvalue()
+    response = make_response(output)
+    response.headers["Content-Disposition"] = "attachment; filename=airports.csv"
+    response.headers["Content-type"] = "text/csv"
+    return response
+
+@app.route('/export_flights', methods=['POST'])
+def export_flights():
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM flights")
+    flight_list = cursor.fetchall()
+    connection.close()
+
+    si = io.StringIO()
+    cw = csv.writer(si)
+    cw.writerow([i[0] for i in cursor.description])
+    cw.writerows(flight_list)
+    output = si.getvalue()
+    response = make_response(output)
+    response.headers["Content-Disposition"] = "attachment; filename=flights.csv"
+    response.headers["Content-type"] = "text/csv"
+    return response
+
+@app.route('/export_maintenance_logs', methods=['POST'])
+def export_maintenance_logs():
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM maintenance_log")
+    maintenance_log_list = cursor.fetchall()
+    connection.close()
+
+    si = io.StringIO()
+    cw = csv.writer(si)
+    cw.writerow([i[0] for i in cursor.description])
+    cw.writerows(maintenance_log_list)
+    output = si.getvalue()
+    response = make_response(output)
+    response.headers["Content-Disposition"] = "attachment; filename=maintenance_logs.csv"
+    response.headers["Content-type"] = "text/csv"
+    return response
+
+@app.route('/export_maintenance_schedules', methods=['POST'])
+def export_maintenance_schedules():
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM maintenance_schedule")
+    maintenance_schedule_list = cursor.fetchall()
+    connection.close()
+
+    si = io.StringIO()
+    cw = csv.writer(si)
+    cw.writerow([i[0] for i in cursor.description])
+    cw.writerows(maintenance_schedule_list)
+    output = si.getvalue()
+    response = make_response(output)
+    response.headers["Content-Disposition"] = "attachment; filename=maintenance_schedules.csv"
+    response.headers["Content-type"] = "text/csv"
+    return response
 
 @app.route('/login')
 def login():

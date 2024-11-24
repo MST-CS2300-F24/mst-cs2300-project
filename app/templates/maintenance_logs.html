@@ -61,6 +61,7 @@
                             <th>Aircraft ID</th>
                             <th>Maintenance Location</th>
                             <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,11 +73,17 @@
                                 <td>{{ maintenance_log[4] }}</td>
                                 <td>{{ maintenance_log[5] }}</td>
                                 <td><a href="{{ url_for('app.edit_maintenance_log', id=maintenance_log[0]) }}">Edit</a></td>
+                                <td><a href="{{ url_for('app.delete_maintenance_log', id=maintenance_log[0]) }}" style="color: red;">Delete</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="export-container" style="margin-top: 20px;">
+            <form method="POST" action="{{ url_for('app.export_maintenance_logs') }}">
+                <button type="submit">Export as Excel</button>
+            </form>
         </div>
     </div>
     <div class="masthead">

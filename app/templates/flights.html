@@ -103,6 +103,7 @@
                             <th>Arrival Airport</th>
                             <th>Departure Airport</th>
                             <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -120,12 +121,18 @@
                             <td>{{ flight[10] }}</td>
                             <td>{{ flight[11] }}</td>
                             <td><a href="{{ url_for('app.edit_flight', flight_id=flight[0]) }}">Edit</a></td>
+                            <td><a href="{{ url_for('app.delete_flight', flight_id=flight[0]) }}" style="color: red;">Delete</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+        <div class="export-container">
+            <form method="GET" action="{{ url_for('app.export_flights') }}">
+                <button type="submit">Export as Excel</button>
+            </form>
+        </div> 
     </div>
     <div class="masthead">
         <p>Luke Roth and Rohith Velmurugan 2024</p>
