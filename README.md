@@ -11,6 +11,7 @@ Run the following commands to create and activate your virtual environment:
 python -m venv .env
 .env/Scripts/activate  
 ```
+*Note: Your Powershell Execution Policy must be set to at least as permissive as remote-signed in order to run this properly on Windows.*
 
 From here, install the necessary packages using the command `pip install -r requirments.txt`
 
