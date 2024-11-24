@@ -31,20 +31,20 @@ CREATE TABLE IF NOT EXISTS aircrafts (
 -- Create flights table
 CREATE TABLE IF NOT EXISTS flights (
     flight_id INT AUTO_INCREMENT PRIMARY KEY,
-    scheduled_departure_datetime DATETIME,
-    scheduled_arrival_datetime DATETIME,
-    actual_departure_datetime DATETIME,
-    actual_arrival_datetime DATETIME,
+    scheduled_departure DATETIME,
+    scheduled_arrival DATETIME,
+    actual_departure DATETIME,
+    actual_arrival DATETIME,
     passenger_count INT,
     projected_fuel_consumption FLOAT,
     actual_fuel_consumption FLOAT,
     distance FLOAT,
     aircraft_id VARCHAR(255),
-    arrival_airport VARCHAR(255),
-    departure_airport VARCHAR(255),
+    destination_airport_id VARCHAR(255),
+    origin_airport_id VARCHAR(255),
     FOREIGN KEY (aircraft_id) REFERENCES aircrafts(registration_code),
-    FOREIGN KEY (arrival_airport) REFERENCES airports(icao_id),
-    FOREIGN KEY (departure_airport) REFERENCES airports(icao_id)
+    FOREIGN KEY (destination_airport_id) REFERENCES airports(icao_id),
+    FOREIGN KEY (origin_airport_id) REFERENCES airports(icao_id)
 );
 
 
