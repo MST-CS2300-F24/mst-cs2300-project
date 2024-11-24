@@ -806,6 +806,60 @@ def export_maintenance_schedules():
     response.headers["Content-type"] = "text/csv"
     return response
 
+@app.route('/report/<registration_code>')
+def report(registration_code):
+    connection = mysql.connect()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT SUM(distance) AS total_distance
+        FROM flights
+        WHERE aircraft_id = %s
+    """, (registration_code,))
+    total_distance = cursor.fetchone()
+
+    cursor.execute("""
+        SELECT SUM(actual_fuel_consumption) AS total_fuel
+        FROM flights
+        WHERE aircraft_id = %s
+    """, (registration_code,))
+    total_fuel = cursor.fetchone()
+
+    cursor.execute("""
+        SELECT suggested_date
+        FROM maintenance_schedule
+        WHERE aircraft_id = %s
+        ORDER BY suggested_date ASC
+        LIMIT 1
+    """, (registration_code,))
+    next_maintenance = cursor.fetchone()
+
+    cursor.execute("""
+        SELECT service_finish
+        FROM maintenance_log
+        WHERE aircraft_id = %s
+        ORDER BY service_finish DESC
+        LIMIT 1
+    """, (registration_code,))
+    last_serviced = cursor.fetchone()
+
+    cursor.execute("""
+        SELECT COUNT(*) AS flight_count
+        FROM flights
+        WHERE aircraft_id = %s AND actual_departure >= CURDATE() - INTERVAL 1 YEAR
+    """, (registration_code,))
+    flights_in_last_year = cursor.fetchone()
+    flights_per_month = "{:.2f}".format(flights_in_last_year[0] / 12)
+
+    # return
+    return render_template('report.html', 
+                           aircraft_id=registration_code, 
+                           total_distance=total_distance, 
+                           total_fuel=total_fuel, 
+                           next_maintenance=next_maintenance, 
+                           last_serviced=last_serviced, 
+                           flights_per_month=flights_per_month)
+
 @app.route('/login')
 def login():
     error = request.args.get('error')

@@ -106,6 +106,7 @@
                             <th>Manufacture Date</th>
                             <th>Home Airport</th>
                             <th>Latest Airport</th>
+                            <th>Report</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -125,6 +126,7 @@
                             <td>{{ aircraft[9] }}</td>
                             <td>{{ aircraft[10] }}</td>
                             <td>{{ aircraft[11] }}</td>
+                            <td><a href="{{ url_for('app.report', registration_code=aircraft[0]) }}">View</a></td>
                             <td><a href="{{ url_for('app.edit_aircraft', registration_code=aircraft[0]) }}">Edit</a></td>
                             <td><a href="{{ url_for('app.delete_aircraft', registration_code=aircraft[0]) }}" style="color: red;">Delete</a></td>
                         </tr>

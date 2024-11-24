@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('app.home') }}">Home</a>
+        <a href="{{ url_for('app.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('app.aircraft') }}">Aircraft</a>
+        <a href="{{ url_for('app.airports') }}">Airports</a>
+        <a href="{{ url_for('app.flights') }}">Flights</a>
+        <a href="{{ url_for('app.maintenance_logs') }}">Maintenance Logs</a>
+        <a href="{{ url_for('app.maintenance_schedules') }}">Maintenance Schedules</a>
+        <a href="{{ url_for('app.add') }}">Add</a>
+        <a href="{{ url_for('app.login') }}">Logout</a>
+    </div>
+    <div class="content">
+        <div class="text-box-center">
+            <h1>Performance Report for Aircraft {{ aircraft_id }}</h1>
+            <p>Total Distance Traveled: {{ total_distance[0] }} miles</p>
+            <p>Total Fuel Consumed: {{ total_fuel[0] }} gallons</p>
+            <p>Next Maintenance Date: {{ next_maintenance[0] }}</p>
+            <p>Last Serviced Date: {{ last_serviced[0] }}</p>
+        
+            <h2>Flights Per Month (Last 12 Months)</h2>
+            <p>{{ flights_per_month }} Flights/Month</p>
+        </div>
+    </div>
+    <div class="masthead">
+        <p>Luke Roth and Rohith Velmurugan 2024</p>
+    </div>
+</body>
+</html>
