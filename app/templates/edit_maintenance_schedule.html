@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Airport</title>
+    <title>Edit Maintenance Schedule</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -17,43 +17,43 @@
         <a href="{{ url_for('app.login') }}">Logout</a>
     </div>
     <div="container">
-        <h2>Edit Airport</h2>
+        <h2>Edit Maintenance Schedule</h2>
     </div>
     <div class="table-container">
         <table class="styled-table" style="background-color: white;">
             <thead>
                 <tr>
-                    <th>ICAO ID</th>
-                    <th>Civilian Name</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
+                    <th>Suggested Date</th>
+                    <th>Description</th>
+                    <th>Aircraft ID</th>
+                    <th>Maintenance Location</th>
                     <th>Save</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ airport[0] }}</td>
-                    <td>{{ airport[1] }}</td>
-                    <td>{{ airport[2] }}</td>
-                    <td>{{ airport[3] }}</td>
+                    <td>{{ maintenance_schedule[1] }}</td>
+                    <td>{{ maintenance_schedule[2] }}</td>
+                    <td>{{ maintenance_schedule[3] }}</td>
+                    <td>{{ maintenance_schedule[4] }}</td>
                 </tr>
-                <form action="{{ url_for('app.edit_airport', icao_id=airport[0]) }}" method="post">
+                <form action="{{ url_for('app.edit_maintenance_schedule', id=maintenance_schedule[0]) }}" method="post">
                     <tr>
                         <td>
-                            <label for="icao_id">ICAO ID:</label>
-                            <input type="text" id="icao_id" name="icao_id" value="{{ airport[0] }}" readonly>
+                            <label for="suggested_date">Suggested Date:</label>
+                            <input type="date" id="suggested_date" name="suggested_date" value="{{ maintenance_schedule[1] }}">
                         </td>
                         <td>
-                            <label for="civilian_name">Civilian Name:</label>
-                            <input type="text" id="civilian_name" name="civilian_name" value="{{ airport[1] }}">
+                            <label for="description">Description:</label>
+                            <input type="text" id="description" name="description" value="{{ maintenance_schedule[2] }}">
                         </td>
                         <td>
-                            <label for="latitude">Latitude:</label>
-                            <input type="text" id="latitude" name="latitude" value="{{ airport[2] }}">
+                            <label for="aircraft_id">Aircraft ID:</label>
+                            <input type="text" id="aircraft_id" name="aircraft_id" value="{{ maintenance_schedule[3] }}">
                         </td>
                         <td>
-                            <label for="longitude">Longitude:</label>
-                            <input type="text" id="longitude" name="longitude" value="{{ airport[3] }}">
+                            <label for="maintenance_location">Maintenance Location:</label>
+                            <input type="text" id="maintenance_location" name="maintenance_location" value="{{ maintenance_schedule[4] }}">
                         </td>
                         <td>
                             <button type="submit">Save</button>

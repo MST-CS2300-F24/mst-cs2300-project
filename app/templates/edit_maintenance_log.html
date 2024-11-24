@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Maintenance Log</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('app.home') }}">Home</a>
+        <a href="{{ url_for('app.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('app.aircraft') }}">Aircraft</a>
+        <a href="{{ url_for('app.airports') }}">Airports</a>
+        <a href="{{ url_for('app.flights') }}">Flights</a>
+        <a href="{{ url_for('app.maintenance_logs') }}">Maintenance Logs</a>
+        <a href="{{ url_for('app.maintenance_schedules') }}">Maintenance Schedules</a>
+        <a href="{{ url_for('app.add') }}">Add</a>
+        <a href="{{ url_for('app.login') }}">Logout</a>
+    </div>
+    <div="container">
+        <h2>Edit Maintenance Log</h2>
+    </div>
+    <div class="table-container">
+        <table class="styled-table" style="background-color: white;">
+            <thead>
+                <tr>
+                    <th>Service Start</th>
+                    <th>Service Finish</th>
+                    <th>Description</th>
+                    <th>Aircraft ID</th>
+                    <th>Maintenance Location</th>
+                    <th>Save</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ maintenance_log[1] }}</td>
+                    <td>{{ maintenance_log[2] }}</td>
+                    <td>{{ maintenance_log[3] }}</td>
+                    <td>{{ maintenance_log[4] }}</td>
+                    <td>{{ maintenance_log[5] }}</td>
+                </tr>
+                <form action="{{ url_for('app.edit_maintenance_log', id=maintenance_log[0]) }}" method="post">
+                    <tr>
+                        <td>
+                            <label for="service_start">Service Start:</label>
+                            <input type="date" id="service_start" name="service_start" value="{{ maintenance_log[1] }}">
+                        </td>
+                        <td>
+                            <label for="service_finish">Service Finish:</label>
+                            <input type="date" id="service_finish" name="service_finish" value="{{ maintenance_log[2] }}">
+                        </td>
+                        <td>
+                            <label for="description">Description:</label>
+                            <input type="text" id="description" name="description" value="{{ maintenance_log[3] }}">
+                        </td>
+                        <td>
+                            <label for="aircraft_id">Aircraft ID:</label>
+                            <input type="text" id="aircraft_id" name="aircraft_id" value="{{ maintenance_log[4] }}">
+                        </td>
+                        <td>
+                            <label for="maintenance_location">Maintenance Location:</label>
+                            <input type="text" id="maintenance_location" name="maintenance_location" value="{{ maintenance_log[5] }}">
+                        </td>
+                        <td>
+                            <button type="submit">Save</button>
+                        </td>
+                    </tr>
+                </form>
+            </tbody>
+        </table>
+    </div>
+    <div class="masthead">
+        <p>Luke Roth and Rohith Velmurugan 2024</p>
+    </div>
+</body>
+</html>

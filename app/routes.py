@@ -236,6 +236,80 @@ def flights():
     
     return render_template('flights.html', flight_list=flight_list)
 
+@app.route('/maintenance_logs')
+def maintenance_logs():
+    search_params = {
+        'service_start': request.args.get('service_start'),
+        'service_finish': request.args.get('service_finish'),
+        'description': request.args.get('description'),
+        'aircraft_id': request.args.get('aircraft_id'),
+        'maintenance_location': request.args.get('maintenance_location')
+    }
+    
+    operators = {
+        'service_start': request.args.get('service_start_operator', '='),
+        'service_finish': request.args.get('service_finish_operator', '='),
+        'description': request.args.get('description_operator', '='),
+        'aircraft_id': request.args.get('aircraft_id_operator', '='),
+        'maintenance_location': request.args.get('maintenance_location_operator', '=')
+    }
+    
+    query = "SELECT * FROM maintenance_log WHERE 1=1"
+    params = []
+    
+    for field, value in search_params.items():
+        if value:
+            if operators[field] == "contains":
+                query += f" AND `{field}` LIKE %s"
+                params.append(f"%{value}%")
+            else:
+                query += f" AND `{field}` {operators[field]} %s"
+                params.append(value)
+    
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute(query, params)
+    maintenance_log_list = cursor.fetchall()
+    connection.close()
+    
+    return render_template('maintenance_logs.html', maintenance_log_list=maintenance_log_list)
+
+@app.route('/maintenance_schedules')
+def maintenance_schedules():
+    search_params = {
+        'suggested_date': request.args.get('suggested_date'),
+        'description': request.args.get('description'),
+        'aircraft_id': request.args.get('aircraft_id'),
+        'maintenance_location': request.args.get('maintenance_location')
+    }
+    
+    operators = {
+        'suggested_date': request.args.get('suggested_date_operator', '='),
+        'description': request.args.get('description_operator', '='),
+        'aircraft_id': request.args.get('aircraft_id_operator', '='),
+        'maintenance_location': request.args.get('maintenance_location_operator', '=')
+    }
+    
+    query = "SELECT * FROM maintenance_schedule WHERE 1=1"
+    params = []
+    
+    for field, value in search_params.items():
+        if value:
+            if operators[field] == "contains":
+                query += f" AND `{field}` LIKE %s"
+                params.append(f"%{value}%")
+            else:
+                query += f" AND `{field}` {operators[field]} %s"
+                params.append(value)
+    
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute(query, params)
+    maintenance_schedule_list = cursor.fetchall()
+    connection.close()
+    
+    return render_template('maintenance_schedules.html', maintenance_schedule_list=maintenance_schedule_list)
+
 @app.route('/edit_airport/<icao_id>', methods=['GET', 'POST'])
 def edit_airport(icao_id):
     if request.method == 'POST':
@@ -332,6 +406,63 @@ def edit_flight(flight_id):
     flight = cursor.fetchone()
     connection.close()
     return render_template('edit_flight.html', flight_id=flight_id, flight=flight)
+
+@app.route('/edit_maintenance_log/<id>', methods=['GET', 'POST'])
+def edit_maintenance_log(id):
+    if request.method == 'POST':
+        # Process form data
+        service_start = request.form['service_start']
+        service_finish = request.form['service_finish']
+        description = request.form['description']
+        aircraft_id = request.form['aircraft_id']
+        maintenance_location = request.form['maintenance_location']
+
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        cursor.execute("""
+            UPDATE maintenance_log
+            SET service_start = %s, service_finish = %s, description = %s, aircraft_id = %s, maintenance_location = %s
+            WHERE id = %s
+        """, (service_start, service_finish, description, aircraft_id, maintenance_location, id))
+        connection.commit()
+        connection.close()
+
+        return redirect(url_for('app.maintenance_logs'))
+
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM maintenance_log WHERE id = %s", (id,))
+    maintenance_log = cursor.fetchone()
+    connection.close()
+    return render_template('edit_maintenance_log.html', id=id, maintenance_log=maintenance_log)
+
+@app.route('/edit_maintenance_schedule/<id>', methods=['GET', 'POST'])
+def edit_maintenance_schedule(id):
+    if request.method == 'POST':
+        # Process form data
+        suggested_date = request.form['suggested_date']
+        description = request.form['description']
+        aircraft_id = request.form['aircraft_id']
+        maintenance_location = request.form['maintenance_location']
+
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        cursor.execute("""
+            UPDATE maintenance_schedule
+            SET suggested_date = %s, description = %s, aircraft_id = %s, maintenance_location = %s
+            WHERE id = %s
+        """, (suggested_date, description, aircraft_id, maintenance_location, id))
+        connection.commit()
+        connection.close()
+
+        return redirect(url_for('app.maintenance_schedules'))
+
+    connection = mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM maintenance_schedule WHERE id = %s", (id,))
+    maintenance_schedule = cursor.fetchone()
+    connection.close()
+    return render_template('edit_maintenance_schedule.html', id=id, maintenance_schedule=maintenance_schedule)
 
 @app.route('/add')
 def add():

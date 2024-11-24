@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Maintenance Logs</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('app.home') }}">Home</a>
+        <a href="{{ url_for('app.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('app.aircraft') }}">Aircraft</a>
+        <a href="{{ url_for('app.airports') }}">Airports</a>
+        <a href="{{ url_for('app.flights') }}">Flights</a>
+        <a href="{{ url_for('app.maintenance_logs') }}">Maintenance Logs</a>
+        <a href="{{ url_for('app.maintenance_schedules') }}">Maintenance Schedules</a>
+        <a href="{{ url_for('app.add') }}">Add</a>
+        <a href="{{ url_for('app.login') }}">Logout</a>
+    </div>
+    <div class="container" style="margin-top: 50px;">
+        <div>
+            <h2>Maintenance Logs</h2>
+            <div class="search-container">
+                <form method="GET" action="{{ url_for('app.maintenance_logs') }}">
+                    <input type="text" name="service_start" placeholder="Service Start">
+                    <select name="service_start_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="service_finish" placeholder="Service Finish">
+                    <select name="service_finish_operator">
+                        <option value="=">=</option>
+                        <option value=">">&gt;</option>
+                        <option value="<">&lt;</option>
+                    </select>
+                    <input type="text" name="description" placeholder="Description">
+                    <select name="description_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <input type="text" name="aircraft_id" placeholder="Aircraft ID">
+                    <select name="aircraft_id_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <input type="text" name="maintenance_location" placeholder="Maintenance Location">
+                    <select name="maintenance_location_operator">
+                        <option value="=">=</option>
+                        <option value="contains">contains</option>
+                    </select>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="table-container">
+                <table class="styled-table" style="background-color: white;">
+                    <thead>
+                        <tr>
+                            <th>Service Start</th>
+                            <th>Service Finish</th>
+                            <th>Description</th>
+                            <th>Aircraft ID</th>
+                            <th>Maintenance Location</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for maintenance_log in maintenance_log_list %}
+                            <tr>
+                                <td>{{ maintenance_log[1] }}</td>
+                                <td>{{ maintenance_log[2] }}</td>
+                                <td>{{ maintenance_log[3] }}</td>
+                                <td>{{ maintenance_log[4] }}</td>
+                                <td>{{ maintenance_log[5] }}</td>
+                                <td><a href="{{ url_for('app.edit_maintenance_log', id=maintenance_log[0]) }}">Edit</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="masthead">
+        <p>Luke Roth and Rohith Velmurugan 2024</p>
+    </div>
+</body>
+</html>
